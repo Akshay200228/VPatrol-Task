@@ -14,7 +14,7 @@ const FoodItemList = ({ foodItems, onEditItem, onDeleteItem }) => {
           <View style={commonStyles.itemRow}>
             <View style={commonStyles.itemContent}>
               <Text style={commonStyles.itemName}>{item.foodName}</Text>
-              <Text style={commonStyles.itemPrice}>Price: {item.foodPrice}</Text>
+              <Text style={commonStyles.itemPrice}>Price: ₹ {item.foodPrice}</Text>
             </View>
             <View style={commonStyles.itemButtons}>
               <TouchableOpacity

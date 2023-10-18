@@ -13,22 +13,29 @@ export const commonStyles = StyleSheet.create({
     textAlign: 'center',
   },
   addButton: {
-    backgroundColor: 'blue',
+    backgroundColor: 'lightgreen',
+    borderColor: 'green',
+    borderStyle: 'dashed',
+    borderWidth: 1,
     padding: 10,
-    borderRadius: 5,
-    position:'relative',
+    borderRadius: 15,
     alignItems: 'center',
     width: '100%',
     marginBottom: 16,
   },
+
   viewListButton: {
-    backgroundColor: 'green',
+    backgroundColor: '#50C878',
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 15,
     alignItems: 'center',
     width: '100%',
   },
-  buttonText: {
+  addbuttonText: {
+    color: 'green',
+    fontWeight: 'bold',
+  },
+  finalbuttonText: {
     color: 'white',
     fontWeight: 'bold',
   },
@@ -92,6 +99,6 @@ export const commonStyles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    zIndex:10,
+    zIndex: 10,
   },
 });

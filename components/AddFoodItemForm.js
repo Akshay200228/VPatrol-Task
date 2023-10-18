@@ -5,17 +5,28 @@ import { MaterialIcons } from '@expo/vector-icons';
 const AddFoodItemForm = ({ onSubmit, initialValues, onClose }) => {
   const [foodName, setFoodName] = useState(initialValues.foodName || '');
   const [foodPrice, setFoodPrice] = useState(initialValues.foodPrice || '');
+  const [error, setError] = useState('');
+
 
   const handleSubmit = () => {
-    const newItem = {
-      foodName,
-      foodPrice,
-    };
+    if (foodName.trim() === '' || foodPrice.trim() === '') {
+      setError('Please fill in all fields.');
+    }
+    else if (isNaN(foodPrice) || foodPrice.trim() === '') {
+      setError('Please enter a valid numeric Food Price.');
+    } else {
+      const newItem = {
+        foodName,
+        foodPrice,
+      };
 
-    onSubmit(newItem);
-    setFoodName('');
-    setFoodPrice('');
+      onSubmit(newItem);
+      setFoodName('');
+      setFoodPrice('');
+      setError('');
+    }
   };
+
 
   return (
     <View style={styles.formContainer}>
@@ -23,6 +34,7 @@ const AddFoodItemForm = ({ onSubmit, initialValues, onClose }) => {
         <MaterialIcons name="close" size={24} color="black" />
       </TouchableOpacity>
       <Text style={styles.title}>Add Food Item</Text>
+      <Text style={styles.errorText}>{error}</Text>
       <TextInput
         style={styles.input}
         value={foodName}
@@ -32,8 +44,13 @@ const AddFoodItemForm = ({ onSubmit, initialValues, onClose }) => {
       <TextInput
         style={styles.input}
         value={foodPrice}
-        onChangeText={setFoodPrice}
+        onChangeText={(text) => {
+          if (!isNaN(text)) {
+            setFoodPrice(text);
+          }
+        }}
         placeholder="Food Price"
+        keyboardType="numeric" // Ensure the numeric keyboard
       />
       <Button title="Submit" onPress={handleSubmit} />
     </View>
@@ -55,6 +72,10 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: -2 },
     shadowRadius: 5,
     shadowOpacity: 0.2,
+  },
+  errorText: {
+    color: 'red',
+    marginBottom: 10,
   },
   closeButton: {
     position: 'absolute',

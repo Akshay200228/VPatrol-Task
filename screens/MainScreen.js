@@ -58,20 +58,25 @@ const MainScreen = () => {
         </View>
       )}
 
-      <View style={commonStyles.buttonContainer}>
-        <TouchableOpacity style={commonStyles.addButton} onPress={handleToggleForm}>
-          <MaterialIcons name="add" size={24} color="white" />
-          <Text style={commonStyles.buttonText}>Add Food Item</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={commonStyles.viewListButton}
-          onPress={() => navigation.navigate('FinalFoodList', { foodItems })}
-        >
+      <TouchableOpacity
+        style={commonStyles.addButton}
+        onPress={handleToggleForm}
+      >
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <MaterialIcons name="add" size={24} color="green" />
+          <Text style={commonStyles.addbuttonText}>Add Food Item</Text>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={commonStyles.viewListButton}
+        onPress={() => navigation.navigate('FinalFoodList', { foodItems })}
+      >
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <MaterialIcons name="list" size={24} color="white" />
-          <Text style={commonStyles.buttonText}>View Final Food List</Text>
-        </TouchableOpacity>
-      </View>
-
+          <Text style={commonStyles.finalbuttonText}>View Final Food List</Text>
+        </View>
+      </TouchableOpacity>
+      
     </View>
   );
 };
