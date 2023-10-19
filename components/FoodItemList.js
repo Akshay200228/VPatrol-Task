@@ -8,7 +8,7 @@ const FoodItemList = ({ foodItems, onEditItem, onDeleteItem }) => {
   return (
     <FlatList
       data={foodItems}
-      keyExtractor={(item, index) => `${item.foodName}_${index}_${Date.now()}`}
+      keyExtractor={(item, index) => `${item.id}_${index}`}
       renderItem={({ item, index }) => (
         <View style={commonStyles.itemContainer}>
           <View style={commonStyles.itemRow}>
@@ -18,7 +18,7 @@ const FoodItemList = ({ foodItems, onEditItem, onDeleteItem }) => {
                   style={{ marginRight: 10 }}
                   onPress={() => handleMenuClick(item)}
                 >
-                  <AntDesign name="checkcircleo" size={24} color="black" />
+                  <Text style={commonStyles.itemNumber}>{index + 1}.</Text>
                 </TouchableOpacity>
                 <Text style={commonStyles.itemName}>{item.foodName}</Text>
               </View>

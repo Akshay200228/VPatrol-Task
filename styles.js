@@ -83,6 +83,11 @@ export const commonStyles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 8,
   },
+  itemNumber: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginRight: 5,
+  },
   editButton: {
     backgroundColor: '#ADD8E6',
     padding: 8,
