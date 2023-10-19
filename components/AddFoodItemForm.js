@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { commonStyles } from '../styles';
 
 const AddFoodItemForm = ({ onSubmit, initialValues, onClose }) => {
   const [foodName, setFoodName] = useState(initialValues.foodName || '');
@@ -61,7 +62,7 @@ const AddFoodItemForm = ({ onSubmit, initialValues, onClose }) => {
         placeholder="Food Price"
         keyboardType="numeric"
       />
-      <Button title="Submit" onPress={handleSubmit} />
+      <TouchableOpacity style={[styles.submitbtn, commonStyles.viewListButton]} title="Submit" onPress={handleSubmit} ><Text style={styles.btntext}>Submit</Text></TouchableOpacity>
     </Animated.View>
   );
 };
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: '100%',
-    backgroundColor: '#9FE2BF', 
+    backgroundColor: '#fff',
     paddingHorizontal: 20,
     paddingTop: 20,
     paddingBottom: 40,
@@ -98,17 +99,25 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#fff', 
+    color: '#171717',
   },
   input: {
     width: '100%',
-    paddingVertical: 10,
-    paddingHorizontal: 15,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
     marginBottom: 15,
-    backgroundColor: '#fff',
-    color: '#333',
+    backgroundColor: '#f7f7f7',
     borderRadius: 10,
   },
+  submitbtn:{
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+  },
+  btntext:{
+    textAlign:'center',
+    color:'#ffff',
+    fontSize:18
+  }
 });
 
 export default AddFoodItemForm;

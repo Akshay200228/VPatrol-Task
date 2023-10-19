@@ -13,7 +13,15 @@ const FoodItemList = ({ foodItems, onEditItem, onDeleteItem }) => {
         <View style={commonStyles.itemContainer}>
           <View style={commonStyles.itemRow}>
             <View style={commonStyles.itemContent}>
-              <Text style={commonStyles.itemName}>{item.foodName}</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <TouchableOpacity
+                  style={{ marginRight: 10 }}
+                  onPress={() => handleMenuClick(item)}
+                >
+                  <AntDesign name="checkcircleo" size={24} color="black" />
+                </TouchableOpacity>
+                <Text style={commonStyles.itemName}>{item.foodName}</Text>
+              </View>
               <Text style={commonStyles.itemPrice}>Price: ₹ {item.foodPrice}</Text>
             </View>
             <View style={commonStyles.itemButtons}>
