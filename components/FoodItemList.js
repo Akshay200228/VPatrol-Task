@@ -8,7 +8,7 @@ const FoodItemList = ({ foodItems, onEditItem, onDeleteItem }) => {
   return (
     <FlatList
       data={foodItems}
-      keyExtractor={(item, index) => `${item.id}_${index}`}
+      keyExtractor={(item, index) => `${item.foodName}_${index}_${Date.now()}`}
       renderItem={({ item, index }) => (
         <View style={commonStyles.itemContainer}>
           <View style={commonStyles.itemRow}>
