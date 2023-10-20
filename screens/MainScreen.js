@@ -66,6 +66,7 @@ const MainScreen = () => {
             onDragEnd={({ data }) => {
               setFoodItems(data);
             }}
+
           />
         </GestureHandlerRootView>
       </ScrollView>
