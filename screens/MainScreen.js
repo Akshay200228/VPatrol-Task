@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
+import DraggableFlatList from 'react-native-draggable-flatlist';
 import AddFoodItemForm from '../components/AddFoodItemForm';
+import ListItem from '../components/ListItem';
 import { commonStyles } from '../styles';
-import FoodItemList from '../components/FoodItemList';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const MainScreen = () => {
   const navigation = useNavigation();
@@ -25,27 +27,48 @@ const MainScreen = () => {
   };
 
   const handleToggleForm = () => {
-    // Toggle the form's visibility
     setShowForm(!showForm);
   };
 
+  const onEditItem = (index) => {
+    setEditingItemIndex(index);
+    setShowForm(true);
+  };
+
+  const onDeleteItem = (index) => {
+    const updatedItems = [...foodItems];
+    updatedItems.splice(index, 1);
+    setFoodItems(updatedItems);
+  };
+
+  const screenHeight = Dimensions.get('window').height;
+  const listHeight = 0.6 * screenHeight; // 60% of the screen height
 
   return (
     <View style={commonStyles.container}>
       <Text style={commonStyles.title}>Food Item Lists</Text>
 
-      <FoodItemList
-        foodItems={foodItems}
-        onEditItem={(index) => {
-          setShowForm(true);
-          setEditingItemIndex(index);
-        }}
-        onDeleteItem={(index) => {
-          const updatedItems = [...foodItems];
-          updatedItems.splice(index, 1);
-          setFoodItems(updatedItems);
-        }}
-      />
+      <ScrollView style={{ height: listHeight }}>
+        <GestureHandlerRootView>
+          <DraggableFlatList
+            data={foodItems}
+            keyExtractor={(item, index) => `${item.foodName}_${index}_${Date.now()}`}
+            renderItem={({ item, index, drag, isActive }) => (
+              <ListItem
+                item={item}
+                index={index}
+                onEdit={() => onEditItem(index)}
+                onDelete={() => onDeleteItem(index)}
+                drag={drag}
+                isActive={isActive}
+              />
+            )}
+            onDragEnd={({ data }) => {
+              setFoodItems(data);
+            }}
+          />
+        </GestureHandlerRootView>
+      </ScrollView>
 
       {showForm && (
         <View style={commonStyles.overlay}>
@@ -57,8 +80,9 @@ const MainScreen = () => {
             }
           />
         </View>
-      )}
-
+      )
+      }
+      <View style={commonStyles.horizontalLine} />
       <TouchableOpacity
         style={commonStyles.addButton}
         onPress={handleToggleForm}
@@ -68,16 +92,19 @@ const MainScreen = () => {
           <Text style={commonStyles.addbuttonText}>Add Food Item</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={commonStyles.viewListButton}
-        onPress={() => navigation.navigate('FinalFoodList', { foodItems })}
-      >
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <MaterialIcons name="list" size={24} color="white" />
-          <Text style={commonStyles.finalbuttonText}>View Final Food List</Text>
-        </View>
-      </TouchableOpacity>
-      
+
+      {/* This is where the "View Final Food List" button is placed at the bottom */}
+      <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+        <TouchableOpacity
+          style={commonStyles.viewListButton}
+          onPress={() => navigation.navigate('FinalFoodList', { foodItems })}
+        >
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <MaterialIcons name="list" size={24} color="white" />
+            <Text style={commonStyles.finalbuttonText}>View Final Food List</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

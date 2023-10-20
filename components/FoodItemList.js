@@ -1,22 +1,28 @@
 import React from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { commonStyles } from '../styles';
+import DraggableFlatList from 'react-native-draggable-flatlist';
 
-const FoodItemList = ({ foodItems, onEditItem, onDeleteItem }) => {
+const FoodItemList = ({ foodItems, onEditItem, onDeleteItem, onItemMove }) => {
+  const handleItemMove = (dragData) => {
+    // You will receive the updated data with the items' new positions here
+    onItemMove(dragData);
+  };
+
   return (
-    <FlatList
+    <DraggableFlatList
       data={foodItems}
       keyExtractor={(item, index) => `${item.foodName}_${index}_${Date.now()}`}
-      renderItem={({ item, index }) => (
+      renderItem={({ item, index, drag, isActive }) => (
         <View style={commonStyles.itemContainer}>
           <View style={commonStyles.itemRow}>
             <View style={commonStyles.itemContent}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <TouchableOpacity
                   style={{ marginRight: 10 }}
-                  onPress={() => handleMenuClick(item)}
+                  onPress={drag}
                 >
                   <Text style={commonStyles.itemNumber}>{index + 1}.</Text>
                 </TouchableOpacity>
@@ -42,6 +48,7 @@ const FoodItemList = ({ foodItems, onEditItem, onDeleteItem }) => {
           </View>
         </View>
       )}
+      onDragEnd={({ data }) => handleItemMove(data)} // Pass the updated data to your custom handler
     />
   );
 };

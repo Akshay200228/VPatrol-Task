@@ -22,6 +22,7 @@ export const commonStyles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     marginBottom: 16,
+    marginTop: 26,
   },
 
   viewListButton: {
@@ -106,4 +107,10 @@ export const commonStyles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     zIndex: 10,
   },
+  horizontalLine: {
+    borderTopWidth: 1,
+    borderColor: 'grey',
+    borderStyle: 'dashed',
+    marginVertical: 10,
+  }
 });
